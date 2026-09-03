@@ -10,15 +10,14 @@ A data frame with the following columns:
 \item{date}{First day of the month (Date).}
 \item{line_number}{Metro line number (integer).}
 \item{station_name}{Name of the metro station (character).}
-\item{avg_passenger}{Average weekday passenger entries in thousands
-(numeric).}
+\item{avg_passenger}{Average weekday passenger entries (numeric).}
 \item{line_name}{English name of the metro line (character).}
 \item{line_name_pt}{Portuguese name of the metro line (character).}
 \item{year}{Calendar year (integer).}
 }
 }
 \source{
-Companhia do Metropolitano de Sao Paulo (METRO).
+Companhia do Metropolitano de São Paulo (METRO SP).
 \url{https://transparencia.metrosp.com.br/dataset/demanda}
 }
 \usage{
@@ -26,22 +25,63 @@ station_averages
 }
 \description{
 Monthly average of weekday (business day) passenger entries for each
-station in the Sao Paulo metro system. Data covers October 2017 through
-2025, sourced from the METRO SP transparency portal.
+station in the São Paulo metro system. Data covers January 2016 through
+2026 for Lines 1, 2, 3, and 15; Line 4 from January 2012; Line 5 from
+January 2016. Sourced from the METRO SP transparency portal and the
+Insper Dataverse.
 }
 \details{
 Only the weekday average (mdu) metric is available at the station level.
-For line-level data with all 5 metrics, see \code{\link{passengers_entrance}}.
+For line-level data with all five metrics, see
+\code{\link{passengers_entrance}}. Months beyond the last published data
+point for each line are trimmed during assembly; interior \code{NA}s
+(e.g. operational outages) are preserved.
 
-Station coverage varies by line:
+Station coverage by line and source:
 \itemize{
-\item Line 1 (Azul/Blue): 23 stations
-\item Line 2 (Verde/Green): 14 stations
-\item Line 3 (Vermelha/Red): 18 stations
-\item Line 4 (Amarela/Yellow): available 2020-2025 (Insper Dataverse source)
-\item Line 5 (Lilas/Lilac): October 2017 - December 2019 (METRO portal)
-and 2020-2025 (Insper Dataverse source)
-\item Line 15 (Prata/Silver): 10 stations in 2020, 11 from 2021 onward
+\item Line 1 (Azul/Blue): 23 stations, January 2016–2026 (METRO SP
+portal).
+\item Line 2 (Verde/Green): 14 stations, January 2016–2026 (METRO SP
+portal).
+\item Line 3 (Vermelha/Red): 18 stations, January 2016–2026 (METRO SP
+portal).
+\item Line 4 (Amarela/Yellow): January 2012–2026 (Insper Dataverse).
+\item Line 5 (Lilás/Lilac): January 2016–July 2018 (METRO SP portal)
+and August 2018–2026 (Insper Dataverse).
+\item Line 15 (Prata/Silver): 2 stations in 2016–2017 (assisted
+operation: Vila Prudente and Oratório), 10 stations in 2020, 11 from
+January 2021 onward (Jardim Colonial added), January 2016–2026
+(METRO SP portal).
 }
+
+METRO published January–September 2017 only as PDFs, with no
+machine-readable equivalent. Those months were transcribed from the
+reports and reconciled against the published line totals.
+
+February–June 2016 carries a defect in the Line 1 values. Across those
+five months the station figures fall well short of what the surrounding
+months and the line total in \code{\link{passengers_entrance}} imply, and
+they are misallocated across stations, with Santa Cruz and Sé too high and
+São Bento and Portuguesa-Tietê too low. The defect comes from METRO's
+retroactive publication of 2016 and is not corrected here, so exclude
+those five months from station-level baselines.
+}
+\section{Data vintage}{
+
+This dataset is a fixed snapshot, current through July 2026. It ships with
+the package so examples, vignettes, and offline analysis always have data
+to hand. The snapshot moves only when the column schema changes or a
+release deliberately carries new data, not when new months are published
+upstream.
+
+METRO SP publishes on an irregular schedule and revises already-published
+years, so the numbers here will drift from the source over time. Freshly
+rebuilt data is published on every pipeline run at
+\url{https://github.com/viniciusoike/metrosp/releases}.
+}
+
+\seealso{
+\code{\link{station_daily}} for daily station entries,
+\code{\link{passengers_entrance}} for monthly line-level totals.
 }
 \keyword{datasets}

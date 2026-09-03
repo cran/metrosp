@@ -46,7 +46,7 @@ glimpse(passengers_entrance)
 
 ## -----------------------------------------------------------------------------
 total_entrance <- passengers_entrance |>
-  filter(metric_abb == "total", line_name != "METRO System")
+  filter(metric_abb == "total", line_number != 99)
 
 
 ## -----------------------------------------------------------------------------
