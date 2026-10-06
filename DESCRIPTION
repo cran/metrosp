@@ -1,7 +1,7 @@
 Package: metrosp
 Type: Package
 Title: São Paulo Metro Passenger Demand Data
-Version: 1.2.1
+Version: 2.0.0
 Authors@R: c(
     person(
       "Vinicius", "Oike",
@@ -12,20 +12,22 @@ Authors@R: c(
   )
 Description: Provides passenger demand data for the São Paulo metro system,
     covering 2012 to 2026. Datasets include monthly passenger entries and
-    transported counts by line, average weekday station entries, daily
-    station entries, and spatial geometries for metro and commuter train
-    lines and stations. The bundled datasets are a fixed snapshot, so
-    analyses stay reproducible and examples run offline; more recent data is
-    published separately as the upstream sources are updated.
+    transported counts by line, average weekday passengers transported
+    by station, daily station entries, and spatial geometries for metro and
+    commuter train lines and stations. The bundled datasets are a fixed snapshot, so
+    analyses stay reproducible and examples run offline. More recent data
+    is published to 'GitHub' releases as the upstream sources are updated,
+    and read_metro_demand() downloads, caches, and reads it, optionally
+    pinned to a dated monthly batch.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.0.0)
 Imports: cli, jsonlite, tools, utils
 Suggests: bizdays, spelling, dataverse, digest, dplyr (>= 1.2.0),
-        ggplot2, knitr, piggyback, quarto, rmarkdown, sf, tarchetypes,
-        targets, testthat (>= 3.0.0), waldo, withr
+        ggplot2, knitr, quarto, rmarkdown, sf, tarchetypes, targets,
+        testthat (>= 3.0.0), waldo, withr
 Config/testthat/edition: 3
 RoxygenNote: 7.3.3
 URL: https://github.com/viniciusoike/metrosp,
@@ -33,9 +35,9 @@ URL: https://github.com/viniciusoike/metrosp,
 BugReports: https://github.com/viniciusoike/metrosp/issues
 VignetteBuilder: quarto
 NeedsCompilation: no
-Packaged: 2026-09-02 22:54:49 UTC; viniciusreginatto
+Packaged: 2026-10-06 11:38:27 UTC; viniciusreginatto
 Author: Vinicius Oike [aut, cre, cph] (ORCID:
     <https://orcid.org/0009-0005-8015-9189>)
 Maintainer: Vinicius Oike <viniciusoike@gmail.com>
 Repository: CRAN
-Date/Publication: 2026-09-03 08:00:02 UTC
+Date/Publication: 2026-10-06 12:00:02 UTC

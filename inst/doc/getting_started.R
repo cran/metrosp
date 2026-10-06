@@ -7,7 +7,7 @@ library(dplyr)
 ## -----------------------------------------------------------------------------
 library(sf)
 
-lines
+rail_lines
 
 
 ## -----------------------------------------------------------------------------
@@ -15,7 +15,16 @@ metro_colors
 
 
 ## -----------------------------------------------------------------------------
-glimpse(passengers_entrance)
+glimpse(line_entries_monthly)
+
+
+## -----------------------------------------------------------------------------
+#| eval: false
+# # Latest published data
+# entrance <- read_metro_demand("line_entries_monthly")
+# 
+# # The month's published batch, named in the analysis that used it
+# entrance_sep <- read_metro_demand("line_entries_monthly", vintage = "2026-09")
 
 
 ## -----------------------------------------------------------------------------
@@ -41,12 +50,12 @@ theme_series <- theme_minimal(base_family = "Avenir", base_size = 10) +
 
 
 ## -----------------------------------------------------------------------------
-glimpse(passengers_entrance)
+glimpse(line_entries_monthly)
 
 
 ## -----------------------------------------------------------------------------
-total_entrance <- passengers_entrance |>
-  filter(metric_abb == "total", line_number != 99)
+total_entrance <- line_entries_monthly |>
+  filter(metric == "total")
 
 
 ## -----------------------------------------------------------------------------
@@ -66,12 +75,12 @@ ggplot(total_entrance, aes(x = date, y = value, color = line_name)) +
 
 
 ## -----------------------------------------------------------------------------
-glimpse(passengers_transported)
+glimpse(line_transported_monthly)
 
 
 ## -----------------------------------------------------------------------------
-daily_avg <- passengers_transported |>
-  filter(metric_abb == "mdu", line_number != 99)
+daily_avg <- line_transported_monthly |>
+  filter(metric == "mdu")
 
 
 ## -----------------------------------------------------------------------------
@@ -82,7 +91,7 @@ ggplot(daily_avg, aes(x = date, y = value, color = line_name)) +
   scale_color_manual(values = metro_colors) +
   labs(
     title = "Daily Average Passenger Transported by Line",
-    subtitle = "Monthly averages across business days (thousands)",
+    subtitle = "Monthly averages across business days",
     x = NULL,
     y = "Daily Average"
   ) +
@@ -91,15 +100,15 @@ ggplot(daily_avg, aes(x = date, y = value, color = line_name)) +
 
 
 ## -----------------------------------------------------------------------------
-glimpse(station_averages)
+glimpse(station_transported_monthly)
 
 
 ## -----------------------------------------------------------------------------
 #| code-fold: true
-line4st <- station_averages |>
+line4st <- station_transported_monthly |>
   filter(line_number == 4)
 
-ggplot(line4st, aes(x = date, y = avg_passenger)) +
+ggplot(line4st, aes(x = date, y = value)) +
   geom_line(lwd = 0.8, color = metro_colors["Yellow"]) +
   facet_wrap(vars(station_name), scales = "free_y") +
   labs(
@@ -111,17 +120,17 @@ ggplot(line4st, aes(x = date, y = avg_passenger)) +
 
 
 ## -----------------------------------------------------------------------------
-glimpse(station_daily)
+glimpse(station_entries_daily)
 
 
 ## -----------------------------------------------------------------------------
 #| code-fold: true
 #| fig-width: 10
 #| fig-height: 8
-line4st_daily <- station_daily |>
+line4st_daily <- station_entries_daily |>
   filter(line_number == 4, year == 2023)
 
-ggplot(line4st_daily, aes(x = date, y = passengers)) +
+ggplot(line4st_daily, aes(x = date, y = value)) +
   geom_smooth(
     lwd = 0.8,
     color = metro_colors["Yellow"],
